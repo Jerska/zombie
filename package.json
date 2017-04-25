@@ -4,7 +4,8 @@
   "description": "Zombie game",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --i public/ -x node server.js"
+    "start": "node server.js",
+    "dev": "nodemon -i public/ -x node server.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,8 @@
   "author": "Matthieu Dumont <jerska@live.fr>",
   "license": "MIT",
   "dependencies": {
-    "nodemon": "^1.11.0"
+    "livereload": "^0.6.2",
+    "nodemon": "^1.11.0",
+    "reload": "^1.1.2"
   }
 }

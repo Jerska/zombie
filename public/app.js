@@ -1,5 +1,7 @@
 var map = CONSTANTS.state.game.map;
 
+var player = CONSTANTS.state.game.player;
+
 const mapRow = cell => (`<div class="cell" style="background-color: ${cell.color}"></div>`);
 const mapHTML = map.map(row => (
   '<div class="row">' +

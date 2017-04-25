@@ -10,6 +10,10 @@ console.log(createMap());
 
 module.exports = {
   game: {
-    map: createMap()
+      map: createMap(),
+      player: {
+	  x : 10,
+	  y : 10
+      }
   }
 };

@@ -1,6 +1,8 @@
 const http = require('http');
 const express = require('express');
 
+let state = require('./state.js');
+
 const app = express();
 
 app.set('port', process.env.PORT || 300);
@@ -26,11 +28,10 @@ io.sockets.on('connection', function (socket) {
 
 app.get('/constants.js', (req, res) => {
   res.contentType('application/javascript');
-  res.send('' +
-    'window.CONSTANTS = {' +
-    '  env: "' + app.get('env') + '"' +
-    '}'
-  );
+  res.send('window.CONSTANTS = ' + JSON.stringify({
+    env: app.get('env'),
+    state
+  }));
 });
 
 server.listen(app.get('port'), () => {

@@ -1,0 +1,20 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+#map {
+  width: 1154px;
+  height: 1154px;
+  margin: auto;
+  border: 1px solid #ccc;
+}
+
+.row {
+}
+
+.cell {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #f8f8f8;
+  float: left;
+}

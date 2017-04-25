@@ -23,6 +23,7 @@ function updatePlayers(state) {
     $player.className = 'player';
     $player.style.left = player.x + 'px'
     $player.style.bottom = player.y + 24 + 'px';
+    $player.setAttribute('data-nickname', encodeURIComponent(player.nickname));
 
     $players.appendChild($player);
   });

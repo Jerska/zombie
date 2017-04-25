@@ -1,13 +1,13 @@
 var map = CONSTANTS.state.game.map;
+var $game = document.getElementById('game');
 
 var player = CONSTANTS.state.game.player;
 
-const mapRow = cell => (`<div class="cell" style="background-color: ${cell.color}"></div>`);
-const mapHTML = map.map(row => (
-  '<div class="row">' +
-  '  ' + row.map(mapRow).join('') +
-  '</div>'
-)).join('');
-document.querySelector('#map').innerHTML = mapHTML;
+console.log(map);
+
+$game.style.width = map.width + 'px';
+$game.style.height = map.height + 'px'
+$game.style.marginTop = '-' + Math.round(map.width / 2) + 'px';
+$game.style.marginLeft = '-' + Math.round(map.width / 2) + 'px';
 
 console.log(map);

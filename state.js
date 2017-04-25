@@ -1,12 +1,6 @@
-const MAP_SIZE = 48;
+const MAP_SIZE = 768;
 
 let queue_monster = [];
-
-function createMap () {
-  return new Array(MAP_SIZE).fill(null).map(() => (
-    new Array(MAP_SIZE).fill(null).map(() => ({ color: '#555' }))
-  ));
-}
 
 function generateMonster() {
     min = Math.ceil(0);
@@ -19,17 +13,19 @@ function generateMonster() {
     queue_monster.push(monster);
 }
 
-console.log(createMap());
 generateMonster();
 generateMonster();
 generateMonster();
 
 module.exports = {
   game: {
-      map: createMap(),
-      player: {
-	  x : 10,
-	  y : 10
-      }
+    player: {
+      x : 10,
+      y : 10
+    },
+    map: {
+      width: MAP_SIZE,
+      height: MAP_SIZE
+    }
   }
 };

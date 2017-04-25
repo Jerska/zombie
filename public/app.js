@@ -63,3 +63,21 @@ socket.emit('new_player', nickname);
 socket.on('load_player', function(x, y) {
   console.log('New player at position : ' + x + ' ' + y);
 });
+
+window.addEventListener('keydown', update, true);
+
+function update(event) {
+    socket.emit('info');
+    socket.on('info_player', function(x, y) {
+        if (event.keyCode == 38 && y > 0)
+            y-= 24;
+        if (event.keyCode == 40 && y < 768)
+            y += 24;
+        if (event.keyCode == 37 && x > 0)
+            x -= 16;
+        if (event.keyCode == 39 && x  < 768)
+            x += 16;
+        socket.emit('update_player', x, y);
+/* Ici faut redraw la div du joueur qui vient de se déplacer */ 
+    });
+}

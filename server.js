@@ -31,7 +31,17 @@ io.sockets.on('connection', function (socket) {
     state.game.players.push(player);
     io.emit('new_player', player);
   });
+
+    socket.on('info', () => {
+        io.emit('info_player', io.x, io.y);
+    });
+    
+    socket.on('update_player', (x, y) => {
+        io.x = x;
+        io.y = y;
+    });
 });
+
 
 app.get('/constants.js', (req, res) => {
   res.contentType('application/javascript');

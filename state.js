@@ -1,5 +1,6 @@
 const MAP_SIZE = 768;
 
+let monsters = [];
 function generateMonster() {
     min = Math.ceil(0);
     max = Math.floor(MAP_SIZE);
@@ -18,7 +19,7 @@ generateMonster();
 module.exports = {
   game: {
     players: [],
-    monsters: [],
+    monsters: monsters,
     map: {
       width: MAP_SIZE,
       height: MAP_SIZE

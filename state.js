@@ -2,7 +2,7 @@ const MAP_SIZE = 48;
 
 function createMap () {
   return new Array(MAP_SIZE).fill(null).map(() => (
-    new Array(MAP_SIZE).fill(null).map(() => ({ color: 'red' }))
+    new Array(MAP_SIZE).fill(null).map(() => ({ color: '#555' }))
   ));
 }
 

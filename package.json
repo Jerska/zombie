@@ -17,7 +17,7 @@
     "online",
     "multiplayer"
   ],
-  "author": "Matthieu Dumont <jerska@live.fr>",
+  "author": "Animae Libertas <jerska@live.fr>",
   "license": "MIT",
   "dependencies": {
     "livereload": "^0.6.2",

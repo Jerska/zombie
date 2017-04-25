@@ -20,10 +20,16 @@
         document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
       }
 var socket = io.connect('http://localhost:3100');
-var nickname = prompt('What\'s your nickname?');
+
+if (localStorage.getItem('nickname') == undefined) {
+  var nickname = prompt('What\'s your nickname?');
+  localStorage.setItem('nickname', nickname);
+}
+else
+  var nickname = localStorage.getItem('nickname');                                                                    
 socket.emit('new_player', nickname);
 
-socket.on('load', function(x, y) {
+socket.on('load_player', function(x, y) {
 console.log('New player at position : ' + x + ' ' + y);
 });
 </script>

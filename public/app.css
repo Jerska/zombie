@@ -3,8 +3,9 @@
 }
 
 #map {
-  width: 1154px;
-  height: 1154px;
+  box-sizing: content-box;
+  width: 768px;
+  height: 768px;
   margin: auto;
   border: 1px solid #ccc;
 }
@@ -13,8 +14,8 @@
 }
 
 .cell {
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   border: 1px solid #f8f8f8;
   float: left;
 }

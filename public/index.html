@@ -16,24 +16,11 @@
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/app.js"></script>
     <script type="text/javascript">
-      // Reloading page on server reload and on front-end updates -->
-      if (CONSTANTS.env === 'development') {
-        document.write('<script src="/reload/reload.js"' + '></' + 'script>');
-        document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
-      }
-var socket = io.connect('http://localhost:3100');
-
-if (localStorage.getItem('nickname') == undefined) {
-  var nickname = prompt('What\'s your nickname?');
-  localStorage.setItem('nickname', nickname);
-}
-else
-  var nickname = localStorage.getItem('nickname');
-socket.emit('new_player', nickname);
-
-socket.on('load_player', function(x, y) {
-console.log('New player at position : ' + x + ' ' + y);
-});
-</script>
+    // Reloading page on server reload and on front-end updates -->
+    if (CONSTANTS.env === 'development') {
+      document.write('<script src="/reload/reload.js"' + '></' + 'script>');
+      document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+    }
+    </script>
   </body>
 </html>

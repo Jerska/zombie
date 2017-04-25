@@ -46,3 +46,20 @@ function updateMonsters(state) {
 updateMap(state);
 updatePlayers(state);
 updateMonsters(state);
+
+/* Socket.io */
+
+var socket = io.connect('http://localhost:3100');
+
+if (localStorage.getItem('nickname') == undefined) {
+  var nickname = prompt('What\'s your nickname?');
+  localStorage.setItem('nickname', nickname);
+} else {
+  var nickname = localStorage.getItem('nickname');
+}
+
+socket.emit('new_player', nickname);
+
+socket.on('load_player', function(x, y) {
+  console.log('New player at position : ' + x + ' ' + y);
+});

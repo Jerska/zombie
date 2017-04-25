@@ -2,6 +2,7 @@ var state = CONSTANTS.state;
 
 var $game = document.getElementById('game');
 var $players = document.getElementById('players');
+var $monsters = document.getElementById('monsters');
 
 function updateMap(state) {
   var map = state.game.map;
@@ -29,5 +30,19 @@ function updatePlayers(state) {
   });
 }
 
+function updateMonsters(state) {
+  var monsters = state.game.monsters;
+  var html = '';
+  monsters.forEach(function (monster) {
+    var $monster = document.createElement('div');
+    $monster.className = 'monster';
+    $monster.style.left = monster.x + 'px'
+    $monster.style.bottom = monster.y + 24 + 'px';
+
+    $monsters.appendChild($monster);
+  });
+}
+
 updateMap(state);
 updatePlayers(state);
+updateMonsters(state);

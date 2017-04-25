@@ -1,7 +1,5 @@
 const MAP_SIZE = 768;
 
-let queue_monster = [];
-
 function generateMonster() {
     min = Math.ceil(0);
     max = Math.floor(MAP_SIZE);
@@ -10,7 +8,7 @@ function generateMonster() {
         y: Math.floor(Math.random() * (max - min -24 +1)) + min
     };
     console.log(`Monster position ${monster.x} and ${monster.y}`);
-    queue_monster.push(monster);
+    monsters.push(monster);
 }
 
 generateMonster();
@@ -20,6 +18,7 @@ generateMonster();
 module.exports = {
   game: {
     players: [],
+    monsters: [],
     map: {
       width: MAP_SIZE,
       height: MAP_SIZE

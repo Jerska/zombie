@@ -30,9 +30,20 @@ html, body {
   z-index: 1;
 }
 
+#monsters {
+    z-index: 1;
+}
+
 .player {
   position: absolute;
   width: 16px;
   height: 24px;
   background-color: blue;
+}
+
+.monster {
+ position: absolute;
+  width: 16px;
+  height: 24px;
+  background-color: green;
 }

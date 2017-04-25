@@ -8,6 +8,7 @@
   <body>
     <div id="game">
       <div id="map"></div>
+      <div id="players"></div>
     </div>
 
     <script type="text/javascript" src="/constants.js"></script>
@@ -26,7 +27,7 @@ if (localStorage.getItem('nickname') == undefined) {
   localStorage.setItem('nickname', nickname);
 }
 else
-  var nickname = localStorage.getItem('nickname');                                                                    
+  var nickname = localStorage.getItem('nickname');
 socket.emit('new_player', nickname);
 
 socket.on('load_player', function(x, y) {

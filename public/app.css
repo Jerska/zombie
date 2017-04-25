@@ -26,7 +26,13 @@ html, body {
   background-color: #555;
 }
 
+#players {
+  z-index: 1;
+}
+
 .player {
   position: absolute;
-  z-index: 1;
+  width: 16px;
+  height: 24px;
+  background-color: blue;
 }

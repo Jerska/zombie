@@ -23,14 +23,14 @@ if (app.get('env') === 'development') {
 }
 
 io.sockets.on('connection', function (socket) {
-    console.log('New user connected!');
-    socket.on('new_player', (nickname) => {
-	io.x = 0;
-	io.y = 0;
-	io.nickname = nickname;
-	console.log(`New user : ${nickname}`);
-	io.emit('load_player', io.x, io.y);
-    });
+  console.log('New user connected!');
+  socket.on('new_player', (nickname) => {
+    const x = 10;
+    const y = 10;
+    const player = {nickname, x, y};
+    state.game.players.push(player);
+    io.emit('new_player', player);
+  });
 });
 
 app.get('/constants.js', (req, res) => {

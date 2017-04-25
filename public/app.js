@@ -1,13 +1,32 @@
-var map = CONSTANTS.state.game.map;
+var state = CONSTANTS.state;
+
 var $game = document.getElementById('game');
+var $players = document.getElementById('players');
 
-var player = CONSTANTS.state.game.player;
+function updateMap(state) {
+  var map = state.game.map;
+  $game.style.width = map.width + 'px';
+  $game.style.height = map.height + 'px'
+  $game.style.marginTop = '-' + Math.round(map.width / 2) + 'px';
+  $game.style.marginLeft = '-' + Math.round(map.width / 2) + 'px';
+}
 
-console.log(map);
+function updatePlayers(state) {
+  var players = state.game.players;
+  var html = '';
+  players.forEach(function (player) {
+    var selector ='[data-nickname="' + encodeURIComponent(player.nickname) + '"]';
+    var $current = $players.querySelector(selector);
+    if ($current) return;
 
-$game.style.width = map.width + 'px';
-$game.style.height = map.height + 'px'
-$game.style.marginTop = '-' + Math.round(map.width / 2) + 'px';
-$game.style.marginLeft = '-' + Math.round(map.width / 2) + 'px';
+    var $player = document.createElement('div');
+    $player.className = 'player';
+    $player.style.left = player.x + 'px'
+    $player.style.bottom = player.y + 24 + 'px';
 
-console.log(map);
+    $players.appendChild($player);
+  });
+}
+
+updateMap(state);
+updatePlayers(state);

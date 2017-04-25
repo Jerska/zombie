@@ -19,10 +19,7 @@ generateMonster();
 
 module.exports = {
   game: {
-    player: {
-      x : 10,
-      y : 10
-    },
+    players: [],
     map: {
       width: MAP_SIZE,
       height: MAP_SIZE

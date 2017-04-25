@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "yarn && nodemon -i public/ -x node server.js"
+    "dev": "yarn && NODE_ENV=development nodemon -i public/ -x node server.js"
   },
   "repository": {
     "type": "git",

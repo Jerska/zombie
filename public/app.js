@@ -23,7 +23,7 @@ function updatePlayers(state) {
     var $player = document.createElement('div');
     $player.className = 'player';
     $player.style.left = player.x + 'px'
-    $player.style.bottom = player.y + 24 + 'px';
+    $player.style.bottom = player.y + 'px';
     $player.setAttribute('data-nickname', encodeURIComponent(player.nickname));
 
     $players.appendChild($player);
@@ -60,8 +60,8 @@ if (localStorage.getItem('nickname') == undefined) {
 
 socket.emit('new_player', nickname);
 
-socket.on('load_player', function(x, y) {
-  console.log('New player at position : ' + x + ' ' + y);
+socket.on('load_player', function(player) {
+  console.log('New player at position : ' + player.x + ' ' + player.y);
 });
 
 window.addEventListener('keydown', update, true);
@@ -69,15 +69,35 @@ window.addEventListener('keydown', update, true);
 function update(event) {
     socket.emit('info');
     socket.on('info_player', function(x, y) {
-        if (event.keyCode == 38 && y > 0)
-            y-= 24;
-        if (event.keyCode == 40 && y < 768)
+        if (event.keyCode == 38 && y < 768) {
             y += 24;
-        if (event.keyCode == 37 && x > 0)
+            socket.emit('update_player', x, y);
+        }
+        else if (event.keyCode == 40 && y > 0) {
+            y -= 24;
+            socket.emit('update_player', x, y);
+        }
+        else if (event.keyCode == 37 && x > 0) {
             x -= 16;
-        if (event.keyCode == 39 && x  < 768)
+            socket.emit('update_player', x, y);
+        }
+        else if (event.keyCode == 39 && x  < 768) {
             x += 16;
-        socket.emit('update_player', x, y);
-/* Ici faut redraw la div du joueur qui vient de se déplacer */ 
+            socket.emit('update_player', x, y);
+        }
     });
 }
+
+socket.on('draw_player', function(x, y) {
+    var nickname = localStorage.getItem('nickname');
+    console.log('player : ' + nickname);
+    var players = state.game.players;
+    players.forEach(function (player) {
+        var selector ='[data-nickname="' + encodeURIComponent(nickname) + '"]';
+        var $current = $players.querySelector(selector);
+        if (player.nickname == nickname) {
+            $current.style.left = x + 'px'
+            $current.style.bottom = y + 'px';
+        }
+    });
+});

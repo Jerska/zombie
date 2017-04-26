@@ -25,11 +25,11 @@ if (app.get('env') === 'development') {
 io.sockets.on('connection', function (socket) {
   console.log('New user connected!');
   socket.on('new_player', (nickname) => {
-    const x = 10;
-    const y = 10;
+    const x = 0;
+    const y = 0;
     const player = {nickname, x, y};
     state.game.players.push(player);
-    io.emit('new_player', player);
+    io.emit('load_player', player);
   });
 
     socket.on('info', () => {
@@ -39,6 +39,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('update_player', (x, y) => {
         io.x = x;
         io.y = y;
+        io.emit('draw_player', io.x, io.y);
     });
 });
 

@@ -1,15 +1,20 @@
 const MAP_SIZE = 768;
 
+let id_monster = 0;
+
 let monsters = [];
+
 function generateMonster() {
-    min = Math.ceil(0);
-    max = Math.floor(MAP_SIZE);
-    let monster = {
-        x: Math.floor(Math.random() * (max - min -16 +1)) + min,
-        y: Math.floor(Math.random() * (max - min -24 +1)) + min
-    };
-    console.log(`Monster position ${monster.x} and ${monster.y}`);
-    monsters.push(monster);
+  min = Math.ceil(0);
+  max = Math.floor(MAP_SIZE);
+  let monster = {
+    x: Math.floor(Math.random() * (max - min -16 +1)) + min,
+    y: Math.floor(Math.random() * (max - min -24 +1)) + min,
+    id: id_monster
+  };
+  id_monster += 1;
+  console.log(`Monster position ${monster.x} and ${monster.y}`);
+  monsters.push(monster);
 }
 
 generateMonster();

@@ -53,7 +53,6 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-
 app.get('/constants.js', (req, res) => {
   res.contentType('application/javascript');
   res.send('window.CONSTANTS = ' + JSON.stringify({
@@ -65,3 +64,19 @@ app.get('/constants.js', (req, res) => {
 server.listen(app.get('port'), () => {
   console.info(`Running on http://localhost:${app.get('port')}/`);
 });
+
+setInterval(function(){ 
+  var monsters = state.game.monsters;
+  monsters.forEach(function (monster) {
+    var _rand = Math.floor(Math.random() * 4);
+    if (_rand == 0) 
+      monster.y -= 16;
+    else if (_rand == 1)
+      monster.y += 16;
+    else if (_rand == 2)
+      monster.x -= 16;
+    else if (_rand == 3)
+      monster.x += 16;
+    io.sockets.emit('draw_monster', monster);
+  });
+}, 100);

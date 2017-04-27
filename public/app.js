@@ -34,10 +34,15 @@ function updateMonsters(state) {
   var monsters = state.game.monsters;
   var html = '';
   monsters.forEach(function (monster) {
+    var selector ='[data-id="' + encodeURIComponent(monster.id) + '"]';
+    var $current = $monsters.querySelector(selector);
+    if ($current) return;
+
     var $monster = document.createElement('div');
     $monster.className = 'monster';
     $monster.style.left = monster.x + 'px'
     $monster.style.bottom = monster.y + 24 + 'px';
+    $monster.setAttribute('data-id', encodeURIComponent(monster.id));
 
     $monsters.appendChild($monster);
   });
@@ -68,6 +73,7 @@ socket.on('load_player', function(player2) {
     player = player2;
   }
   var exists = state.game.players.find(player3 => player2.nickname === player3.nickname);
+
   if (!exists) state.game.players.push(player2);
 
   updatePlayers(state);
@@ -88,6 +94,19 @@ function drawPlayer (player) {
 
   $current.style.left = player.x + 'px'
   $current.style.bottom = player.y + 'px';
+}
+
+function drawMonster (monster) {
+  const monster2 = state.game.monsters.find(monster2 => monster.id === monster2.id);
+
+  monster2.x = monster.x;
+  monster2.y = monster.y;
+
+  var selector ='[data-id="' + encodeURIComponent(monster.id) + '"]';
+  var $current = $monsters.querySelector(selector);
+
+  $current.style.left = monster.x + 'px'
+  $current.style.bottom = monster.y + 'px';
 }
 
 function update(event) {
@@ -125,4 +144,8 @@ function update(event) {
 socket.on('draw_player', function (player) {
   console.log("On redraw : " + nickname);
   drawPlayer(player);
+});
+
+socket.on('draw_monster', function (monster) {
+  drawMonster(monster);
 });

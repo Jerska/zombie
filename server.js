@@ -24,19 +24,25 @@ if (app.get('env') === 'development') {
 
 io.sockets.on('connection', function (socket) {
   console.log('New user connected!');
+  console.log('Socket id', socket.id);
 
   socket.on('new_player', (nickname) => {
     const x = 0;
     const y = 0;
+
     const player = {nickname, x, y};
+
     socket.nickname = nickname;
+
     state.game.players.push(player);
+
     io.emit('load_player', player);
   });
 
   socket.on('info', () => {
     const current = state.game.players.find(player => player.nickname === socket.nickname);
-    io.emit('info_player', current.x, current.y);
+
+    io.emit('info_player', current);
   });
 
   socket.broadcast.on('update_player', (x, y) => {
@@ -44,7 +50,8 @@ io.sockets.on('connection', function (socket) {
 
     current.x = x;
     current.y = y;
-    io.emit('draw_player', x, y);
+
+    io.emit('draw_player', current);
   });
 });
 

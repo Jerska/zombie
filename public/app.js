@@ -69,51 +69,53 @@ window.addEventListener('keydown', update, true);
 
 function update(event) {
   socket.emit('info');
-  socket.on('info_player', function(x, y) {
+  socket.on('info_player', function(player) {
     if (event.defaultPrevented) {
       return; // Should do nothing if the key event was already consumed.
     }
     switch (event.key) {
       case "ArrowDown":
-        if (y > 0) {
-          y -= 16;
-          socket.emit('update_player', x, y);
+        if (player.y > 0) {
+          player.y -= 16;
         }
         break;
       case "ArrowUp":
-        if (y < 768) {
-          y += 16;
-          socket.emit('update_player', x, y);
+        if (player.y < 768) {
+          player.y += 16;
         }
         break;
       case "ArrowLeft":
-        if (x > 0) {
-          x -= 16;
-          socket.emit('update_player', x, y);
+        if (player.x > 0) {
+          player.x -= 16;
         }
         break;
       case "ArrowRight":
-        if (x  < 768) {
-          x += 16;
-          socket.emit('update_player', x, y);
+        if (player.x  < 768) {
+          player.x += 16;
         }
         break;
       default:
         return; // Quit when this doesn't handle the key event.
     }
+    socket.emit('update_player', player.x, player.y);
     event.preventDefault();
   });
 }
 
-socket.on('draw_player', function(x, y) {
+socket.on('draw_player', function (player) {
   var players = state.game.players;
   console.log("On redraw : " + nickname);
-  players.forEach(function (player) {
+  players.forEach(function (player2) {
+    if (player2.nickname !== player.nickname) return;
+    player2.x = player.x;
+    player2.y = player.y;
+
     var selector ='[data-nickname="' + encodeURIComponent(nickname) + '"]';
     var $current = $players.querySelector(selector);
+
     if (player.nickname == nickname) {
-      $current.style.left = x + 'px'
-      $current.style.bottom = y + 'px';
+      $current.style.left = player.x + 'px'
+      $current.style.bottom = player.y + 'px';
     }
   });
 });

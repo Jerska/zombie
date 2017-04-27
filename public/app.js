@@ -80,7 +80,7 @@ function update(event) {
         }
         break;
       case "ArrowUp":
-        if (player.y < 768) {
+        if (player.y < 768 - 16) {
           player.y += 16;
         }
         break;
@@ -90,7 +90,7 @@ function update(event) {
         }
         break;
       case "ArrowRight":
-        if (player.x  < 768) {
+        if (player.x < 768 - 16) {
           player.x += 16;
         }
         break;

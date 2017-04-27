@@ -3,7 +3,7 @@ export default class Player {
 
   static list = [];
   static find (nickname) {
-    if (!Player.list) return Player.list;
+    if (!Player.list) return null;
     return Player.list.find(player => player.nickname === nickname);
   }
 

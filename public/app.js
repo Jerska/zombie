@@ -75,13 +75,13 @@ function update(event) {
     switch (event.key) {
       case "ArrowDown":
         if (y > 0) {
-          y -= 24;
+          y -= 16;
           socket.emit('update_player', x, y);
         }
         break;
       case "ArrowUp":
         if (y < 768) {
-          y += 24;
+          y += 16;
           socket.emit('update_player', x, y);
         }
         break;

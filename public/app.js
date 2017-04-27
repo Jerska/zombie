@@ -69,28 +69,47 @@ window.addEventListener('keydown', update, true);
 function update(event) {
     socket.emit('info');
     socket.on('info_player', function(x, y) {
-        if (event.keyCode == 38 && y < 768) {
-            y += 24;
-            socket.emit('update_player', x, y);
+        if (event.defaultPrevented) {
+            return; // Should do nothing if the key event was already consumed.
         }
-        else if (event.keyCode == 40 && y > 0) {
-            y -= 24;
-            socket.emit('update_player', x, y);
+        switch (event.key) {
+        case "ArrowDown":
+            if (y > 0) {
+                console.log("You press DOWN");
+                y -= 24;
+                socket.emit('update_player', x, y);
+            }
+            break;
+        case "ArrowUp":
+            if (y < 768) {
+                console.log("You press UP");
+                y += 24;
+                socket.emit('update_player', x, y);
+            }
+            break;
+        case "ArrowLeft":
+            if (x > 0) {
+                console.log("You press LEFT");
+                x -= 16;
+                socket.emit('update_player', x, y);
+            }
+            break;
+        case "ArrowRight":
+            if (x  < 768) {
+                console.log("You press RIGHT");
+                x += 16;
+                socket.emit('update_player', x, y);
+            }
+            break;
+        default:
+            return; // Quit when this doesn't handle the key event.
         }
-        else if (event.keyCode == 37 && x > 0) {
-            x -= 16;
-            socket.emit('update_player', x, y);
-        }
-        else if (event.keyCode == 39 && x  < 768) {
-            x += 16;
-            socket.emit('update_player', x, y);
-        }
+        event.preventDefault();
     });
 }
 
 socket.on('draw_player', function(x, y) {
     var nickname = localStorage.getItem('nickname');
-    console.log('player : ' + nickname);
     var players = state.game.players;
     players.forEach(function (player) {
         var selector ='[data-nickname="' + encodeURIComponent(nickname) + '"]';

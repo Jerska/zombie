@@ -51,7 +51,7 @@ var socket = io.connect('http://localhost:3100');
 Player.nickname = localStorage.getItem('nickname');
 if (!Player.nickname) {
   Player.nickname = prompt('What\'s your nickname?');
-  localStorage.setItem('nickname', nickname);
+  localStorage.setItem('nickname', Player.nickname);
 }
 
 socket.emit('new_player', Player.nickname);

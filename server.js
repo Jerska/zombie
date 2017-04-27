@@ -29,17 +29,21 @@ io.sockets.on('connection', function (socket) {
     const x = 0;
     const y = 0;
     const player = {nickname, x, y};
+    socket.nickname = nickname;
     state.game.players.push(player);
     io.emit('load_player', player);
   });
 
   socket.on('info', () => {
-    io.emit('info_player', socket.x, socket.y);
+    const current = state.game.players.find(player => player.nickname === socket.nickname);
+    io.emit('info_player', current.x, current.y);
   });
 
   socket.broadcast.on('update_player', (x, y) => {
-    socket.x = x;
-    socket.y = y;
+    const current = state.game.players.find(player => player.nickname === socket.nickname);
+
+    current.x = x;
+    current.y = y;
     io.emit('draw_player', x, y);
   });
 });

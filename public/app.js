@@ -51,11 +51,12 @@ updateMonsters(state);
 
 var socket = io.connect('http://localhost:3100');
 
+var nickname = null;
 if (localStorage.getItem('nickname') == undefined) {
-  var nickname = prompt('What\'s your nickname?');
+  nickname = prompt('What\'s your nickname?');
   localStorage.setItem('nickname', nickname);
 } else {
-  var nickname = localStorage.getItem('nickname');
+  nickname = localStorage.getItem('nickname');
 }
 
 socket.emit('new_player', nickname);
@@ -105,7 +106,6 @@ function update(event) {
 }
 
 socket.on('draw_player', function(x, y) {
-  var nickname = localStorage.getItem('nickname');
   var players = state.game.players;
   console.log("On redraw : " + nickname);
   players.forEach(function (player) {

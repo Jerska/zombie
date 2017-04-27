@@ -67,53 +67,53 @@ socket.on('load_player', function(player) {
 window.addEventListener('keydown', update, true);
 
 function update(event) {
-    socket.emit('info');
-    socket.on('info_player', function(x, y) {
-        if (event.defaultPrevented) {
-            return; // Should do nothing if the key event was already consumed.
+  socket.emit('info');
+  socket.on('info_player', function(x, y) {
+    if (event.defaultPrevented) {
+      return; // Should do nothing if the key event was already consumed.
+    }
+    switch (event.key) {
+      case "ArrowDown":
+        if (y > 0) {
+          y -= 24;
+          socket.emit('update_player', x, y);
         }
-        switch (event.key) {
-        case "ArrowDown":
-            if (y > 0) {
-                 y -= 24;
-                socket.emit('update_player', x, y);
-            }
-            break;
-        case "ArrowUp":
-            if (y < 768) {
-                 y += 24;
-                socket.emit('update_player', x, y);
-            }
-            break;
-        case "ArrowLeft":
-            if (x > 0) {
-                 x -= 16;
-                socket.emit('update_player', x, y);
-            }
-            break;
-        case "ArrowRight":
-            if (x  < 768) {
-                 x += 16;
-                socket.emit('update_player', x, y);
-            }
-            break;
-        default:
-            return; // Quit when this doesn't handle the key event.
+        break;
+      case "ArrowUp":
+        if (y < 768) {
+          y += 24;
+          socket.emit('update_player', x, y);
         }
-        event.preventDefault();
-    });
+        break;
+      case "ArrowLeft":
+        if (x > 0) {
+          x -= 16;
+          socket.emit('update_player', x, y);
+        }
+        break;
+      case "ArrowRight":
+        if (x  < 768) {
+          x += 16;
+          socket.emit('update_player', x, y);
+        }
+        break;
+      default:
+        return; // Quit when this doesn't handle the key event.
+    }
+    event.preventDefault();
+  });
 }
 
 socket.on('draw_player', function(x, y) {
-    var nickname = localStorage.getItem('nickname');
-    var players = state.game.players;
-    console.log("On redraw : " + nickname);
-    players.forEach(function (player) {
-        var selector ='[data-nickname="' + encodeURIComponent(nickname) + '"]';
-        var $current = $players.querySelector(selector);
-        if (player.nickname == nickname) {
-            $current.style.left = x + 'px'
-            $current.style.bottom = y + 'px';
-        }
-    });
+  var nickname = localStorage.getItem('nickname');
+  var players = state.game.players;
+  console.log("On redraw : " + nickname);
+  players.forEach(function (player) {
+    var selector ='[data-nickname="' + encodeURIComponent(nickname) + '"]';
+    var $current = $players.querySelector(selector);
+    if (player.nickname == nickname) {
+      $current.style.left = x + 'px'
+      $current.style.bottom = y + 'px';
+    }
+  });
 });

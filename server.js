@@ -32,15 +32,15 @@ io.sockets.on('connection', function (socket) {
     io.emit('load_player', player);
   });
 
-    socket.on('info', () => {
-        io.emit('info_player', io.x, io.y);
-    });
-    
-    socket.broadcast.on('update_player', (x, y) => {
-        io.x = x;
-        io.y = y;
-        io.emit('draw_player', io.x, io.y);
-    });
+  socket.on('info', () => {
+    io.emit('info_player', io.x, io.y);
+  });
+
+  socket.broadcast.on('update_player', (x, y) => {
+    io.x = x;
+    io.y = y;
+    io.emit('draw_player', io.x, io.y);
+  });
 });
 
 

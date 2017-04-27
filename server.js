@@ -36,7 +36,7 @@ io.sockets.on('connection', function (socket) {
         io.emit('info_player', io.x, io.y);
     });
     
-    socket.on('update_player', (x, y) => {
+    socket.broadcast.on('update_player', (x, y) => {
         io.x = x;
         io.y = y;
         io.emit('draw_player', io.x, io.y);

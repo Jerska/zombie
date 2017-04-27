@@ -75,29 +75,25 @@ function update(event) {
         switch (event.key) {
         case "ArrowDown":
             if (y > 0) {
-                console.log("You press DOWN");
-                y -= 24;
+                 y -= 24;
                 socket.emit('update_player', x, y);
             }
             break;
         case "ArrowUp":
             if (y < 768) {
-                console.log("You press UP");
-                y += 24;
+                 y += 24;
                 socket.emit('update_player', x, y);
             }
             break;
         case "ArrowLeft":
             if (x > 0) {
-                console.log("You press LEFT");
-                x -= 16;
+                 x -= 16;
                 socket.emit('update_player', x, y);
             }
             break;
         case "ArrowRight":
             if (x  < 768) {
-                console.log("You press RIGHT");
-                x += 16;
+                 x += 16;
                 socket.emit('update_player', x, y);
             }
             break;
@@ -111,6 +107,7 @@ function update(event) {
 socket.on('draw_player', function(x, y) {
     var nickname = localStorage.getItem('nickname');
     var players = state.game.players;
+    console.log("On redraw : " + nickname);
     players.forEach(function (player) {
         var selector ='[data-nickname="' + encodeURIComponent(nickname) + '"]';
         var $current = $players.querySelector(selector);

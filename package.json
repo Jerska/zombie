@@ -20,9 +20,11 @@
   "author": "Animae Libertas <jerska@live.fr>",
   "license": "MIT",
   "dependencies": {
+    "socket.io": "^1.7.3"
+  },
+  "devDependencies": {
     "livereload": "^0.6.2",
     "nodemon": "^1.11.0",
     "reload": "^1.1.2",
-    "socket.io": "^1.7.3"
   }
 }

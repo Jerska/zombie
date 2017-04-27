@@ -24,6 +24,8 @@ if (app.get('env') === 'development') {
 
 io.sockets.on('connection', function (socket) {
   console.log('New user connected!');
+  let pos = {};
+
   socket.on('new_player', (nickname) => {
     const x = 0;
     const y = 0;
@@ -33,13 +35,13 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('info', () => {
-    io.emit('info_player', io.x, io.y);
+    io.emit('info_player', pos.x, pos.y);
   });
 
   socket.broadcast.on('update_player', (x, y) => {
-    io.x = x;
-    io.y = y;
-    io.emit('draw_player', io.x, io.y);
+    pos.x = x;
+    pos.y = y;
+    io.emit('draw_player', x, y);
   });
 });
 

@@ -31,8 +31,8 @@ io.sockets.on('connection', function (socket) {
     let player = state.game.players.find(player => player.nickname === nickname);
 
     if (!player) {
-      const x = 0;
-      const y = 0;
+      const x = 300;
+      const y = 300;
 
       player = {nickname, x, y};
 

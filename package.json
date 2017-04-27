@@ -26,6 +26,7 @@
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.4.0",
     "foreman": "^2.0.0",
     "livereload": "^0.6.2",

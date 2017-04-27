@@ -7,6 +7,7 @@ const app = express();
 
 app.set('port', process.env.PORT || 300);
 
+app.use(express.static('dist'));
 app.use(express.static('public'));
 
 const server = http.createServer(app);
@@ -19,7 +20,7 @@ if (app.get('env') === 'development') {
 
   const livereload = require('livereload');
   const lrserver = livereload.createServer();
-  lrserver.watch(__dirname + '/public');
+  lrserver.watch(__dirname + '/dist');
 }
 
 io.sockets.on('connection', function (socket) {

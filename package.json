@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "yarn && NODE_ENV=development nodemon -i public/ -x node server.js"
+    "dev": "yarn && env > .env && ./node_modules/.bin/nf start --env .env --procfile Procfile.dev"
   },
   "repository": {
     "type": "git",
@@ -20,11 +20,17 @@
   "author": "Animae Libertas <jerska@live.fr>",
   "license": "MIT",
   "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "socket.io": "^1.7.3"
   },
   "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.4.0",
+    "foreman": "^2.0.0",
     "livereload": "^0.6.2",
     "nodemon": "^1.11.0",
     "reload": "^1.1.2",
+    "webpack": "^2.4.1"
   }
 }

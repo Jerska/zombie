@@ -114,8 +114,19 @@ socket.on('draw_monster', function (monster) {
 
 function shot(event) {
   const me = Player.me;
-  console.log(`X : ${event.clientX} et Y : ${event.clientY}`); // position click mouse
-  console.log(`Mon X : ${me.x + 8}  et mon Y : ${me.y + 12}`); // position of the center of the player
+  const _map = map.getBoundingClientRect();
+  const yb = event.clientY - _map.y; // ici ça prout :'(
+  const ya = me.y + 12;
+  const xb = event.clientX - _map.x;
+  const xa = me.x + 8;
+  const angle = Math.atan2(yb - ya, xb - xa);
+  const dist = Math.sqrt((yb - ya) * (yb - ya) + (xb - xa) * (xb - xa));
+  const xc = xa + Math.cos(angle) * (dist / 2);
+  const yc = ya + Math.sin(angle) * (dist / 2);
+  console.log(`x map : ${_map.x} et y map : ${_map.y}`);
+  console.log(`Xa : ${xa}  et Ya : ${ya}`);
+  console.log(`X : ${xc}  et Y : ${yc}`);
+  console.log(`Xb : ${xb}  et Yb : ${yb}`);
 }
 
 document.addEventListener("click", shot);

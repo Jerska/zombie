@@ -110,3 +110,12 @@ socket.on('draw_player', p => {
 socket.on('draw_monster', function (monster) {
   drawMonster(monster);
 });
+
+
+function shot(event) {
+  const me = Player.me;
+  console.log(`X : ${event.clientX} et Y : ${event.clientY}`); // position click mouse
+  console.log(`Mon X : ${me.x + 8}  et mon Y : ${me.y + 12}`); // position of the center of the player
+}
+
+document.addEventListener("click", shot);

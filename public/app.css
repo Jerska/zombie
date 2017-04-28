@@ -27,7 +27,7 @@ html, body {
 }
 
 #players {
-  z-index: 1;
+    z-index: 1;
 }
 
 #monsters {

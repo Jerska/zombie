@@ -45,7 +45,7 @@ html, body, #game {
 
 .missile {
   position: absolute;
-  width: 16px;
-  height: 24px;
+  width: 2px;
+  height: 2px;
   background-color: red;
 }

@@ -66,17 +66,19 @@ socket.on('draw_monster', m => {
 
 
 function shot(event) {
+  console.log(event);
   const me = Player.me;
   const _map = Game.instance.map.$this.getBoundingClientRect();
-  const yb = 768 + _map.y - event.clientY;
+  console.log(_map);
+  const yb = _map.bottom - event.clientY;
   const ya = me.y + 12;
-  const xb = event.clientX - _map.x;
+  const xb = event.clientX - _map.left;
   const xa = me.x + 8;
   const angle = Math.atan2(yb - ya, xb - xa);
   const dist = Math.sqrt((yb - ya) * (yb - ya) + (xb - xa) * (xb - xa));
   const xc = xa + Math.cos(angle) * (dist / 2);
   const yc = ya + Math.sin(angle) * (dist / 2);
-  console.log(`x map : ${_map.x} et y map : ${_map.y}`);
+  console.log(`x map : ${_map.left} et y map : ${_map.bottom}`);
   console.log(`Xa : ${xa}  et Ya : ${ya}`);
   console.log(`X : ${xc}  et Y : ${yc}`);
   console.log(`Xb : ${xb}  et Yb : ${yb}`);

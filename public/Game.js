@@ -1,18 +1,19 @@
 import Map from './Map.js';
 import Player from './Player.js';
 import Monster from './Monster.js';
+import Projectile from './Projectile.js';
 
 export default class Game {
   static instance = null;
 
   static $missiles = document.getElementById('missiles');
 
-  constructor ({map, players, monsters}, socket) {
+  constructor ({map, players, projectiles, monsters}, socket) {
     Game.instance = this;
     this.map = new Map(map);
     this.players = players.map(p => new Player(p));
     this.monsters = monsters.map(m => new Monster(m));
-    this.missiles = [];
+    this.projectiles = projectiles.map(p => new Projectile(p));
     this.socket = socket;
     this.previousUpdate = new Date().getTime();
   }
@@ -22,20 +23,10 @@ export default class Game {
     this.players.forEach(p => {
       p.move({duration: currentDate - this.previousUpdate});
     });
+    this.projectiles.forEach(p => {
+      p.move({duration: currentDate - this.previousUpdate});
+    });
     this.previousUpdate = currentDate;
-  }
-
-  addMissile(x, y) {
-    let $missile = document.createElement('div');
-    $missile.className = 'missile';
-    this.missiles.push({"missile" : $missile, "x" : x, "y" : y});
-    Game.$missiles.appendChild($missile);
-   this.$drawMissile();
-  }
-
-  $drawMissile() {
-    this.missiles[0].missile.style.left = this.missiles[0].x + 'px';
-    this.missiles[0].missile.style.bottom = this.missiles[0].y + 'px';
   }
 
   addPlayer (p) {

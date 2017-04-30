@@ -1,6 +1,7 @@
+import Game from './Game.js';
 import Player from './Player.js';
 import Monster from './Monster.js';
-import Game from './Game.js';
+import Projectile from './Projectile.js';
 
 var state = CONSTANTS.state;
 
@@ -64,25 +65,29 @@ socket.on('draw_monster', m => {
   monster.$draw();
 });
 
+socket.on('new_projectile', p => {
+  Game.instance.projectiles.push(new Projectile(p));
+});
+
 
 function shot(event) {
-  console.log(event);
   const me = Player.me;
   const _map = Game.instance.map.$this.getBoundingClientRect();
-  console.log(_map);
   const yb = _map.bottom - event.clientY;
   const ya = me.y + 12;
   const xb = event.clientX - _map.left;
   const xa = me.x + 8;
   const angle = Math.atan2(yb - ya, xb - xa);
-  const dist = Math.sqrt((yb - ya) * (yb - ya) + (xb - xa) * (xb - xa));
-  const xc = xa + Math.cos(angle) * (dist / 2);
-  const yc = ya + Math.sin(angle) * (dist / 2);
-  console.log(`x map : ${_map.left} et y map : ${_map.bottom}`);
-  console.log(`Xa : ${xa}  et Ya : ${ya}`);
-  console.log(`X : ${xc}  et Y : ${yc}`);
-  console.log(`Xb : ${xb}  et Yb : ${yb}`);
-  Game.instance.addMissile(xc, yc);
+  Game.instance.projectiles.push(
+    new Projectile({
+      x: me.x + Player.WIDTH / 2,
+      y: me.y + Player.HEIGHT / 2,
+      width: 2,
+      height: 2,
+      speed: 1,
+      angle: angle
+    })
+  );
 }
 
 document.addEventListener("click", shot);

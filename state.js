@@ -25,6 +25,7 @@ module.exports = {
   game: {
     players: [],
     monsters: monsters,
+    projectiles: [],
     map: {
       width: MAP_SIZE,
       height: MAP_SIZE

@@ -43,7 +43,7 @@ html, body, #game {
   background-color: green;
 }
 
-.missile {
+.projectile {
   position: absolute;
   width: 2px;
   height: 2px;

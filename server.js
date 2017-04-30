@@ -52,6 +52,10 @@ io.sockets.on('connection', function (socket) {
 
     io.sockets.emit('draw_player', current);
   });
+
+  socket.on('new_projectile', p => {
+    socket.broadcast.emit('new_projectile', p);
+  });
 });
 
 app.get('/constants.js', (req, res) => {

@@ -28,6 +28,10 @@ export default class Game {
       p.move({previous: this.previous});
     });
     this.projectiles.forEach(p => {
+      this.monsters.forEach(m => {
+        if (p.x >= m.x && p.x <= m.x + 16 && p.y >= m.y && p.y <= m.y + 16)
+          m.$destroy();
+      });
       p.move({previous: this.previous});
     });
     this.previous = this.now;

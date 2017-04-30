@@ -22,7 +22,7 @@ export default class Monster {
     var distance;
 
     players.forEach(player => {
-      var dist = Math.sqrt(((y - this.y) * (y - this.y)) + ((x - this.x) * (x - this.x)));
+      var dist = Math.sqrt(((player.y - this.y) * (player.y - this.y)) + ((player.x - this.x) * (player.x - this.x)));
       if (dist < distance || !distance) {
         distance = dist;
         closer_player = player;
@@ -79,5 +79,9 @@ export default class Monster {
   $draw () {
     this.$this.style.left = this.x + 'px'
     this.$this.style.bottom = this.y + 'px';
+  }
+
+  $destroy() {
+    this.$this.style.background-color = "red";
   }
 };

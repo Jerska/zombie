@@ -7,12 +7,22 @@ export default class Game {
 
   static $missiles = document.getElementById('missiles');
 
-  constructor ({map, players, monsters}) {
+  constructor ({map, players, monsters}, socket) {
     Game.instance = this;
     this.map = new Map(map);
     this.players = players.map(p => new Player(p));
     this.monsters = monsters.map(m => new Monster(m));
     this.missiles = [];
+    this.socket = socket;
+    this.previousUpdate = new Date().getTime();
+  }
+
+  update () {
+    const currentDate = new Date().getTime();
+    this.players.forEach(p => {
+      p.move({duration: currentDate - this.previousUpdate});
+    });
+    this.previousUpdate = currentDate;
   }
 
   addMissile(x, y) {

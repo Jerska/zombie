@@ -3,6 +3,7 @@ import Game from './Game.js';
 export default class Player {
   static WIDTH = 16;
   static HEIGHT = 24;
+  static SPEED = 128;
 
   static $players = document.getElementById('players');
 
@@ -19,6 +20,8 @@ export default class Player {
     this.nickname = nickname;
     this.x = x;
     this.y = y;
+    this.speed = 0;
+    this.angle = 0;
   }
 
   update ({x, y}) {
@@ -36,6 +39,31 @@ export default class Player {
         this.y = Game.instance.map.height - Player.HEIGHT;
       }
     }
+  }
+
+  move({duration}) {
+    const amount = duration / 1000 * Player.SPEED * this.speed;
+    this.update({
+      x: this.x + Math.cos(this.angle) * amount,
+      y: this.y + Math.sin(this.angle) * amount
+    });
+
+    if (this === Player.me) {
+      console.log(this.x, this.y);
+      Game.instance.socket.emit('update_player', this.x, this.y);
+    }
+
+    this.$draw();
+  }
+
+  setMovement ({x, y}) {
+    if (x === 0 && y === 0) {
+      this.speed = 0;
+      this.angle = 0;
+      return;
+    }
+    this.speed = 1;
+    this.angle = Math.atan2(y, x);
   }
 
   get $this () {

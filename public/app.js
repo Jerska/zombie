@@ -4,12 +4,15 @@ import Game from './Game.js';
 
 var state = CONSTANTS.state;
 
-const game = new Game(state.game);
+var socket = io.connect('http://localhost:3100');
+
+const game = new Game(state.game, socket);
 game.$init();
+setInterval(() => {
+  game.update();
+}, 16);
 
 /* Socket.io */
-
-var socket = io.connect('http://localhost:3100');
 
 Player.nickname = localStorage.getItem('nickname');
 if (!Player.nickname) {
@@ -23,24 +26,31 @@ socket.on('load_player', p => {
   game.addPlayer(p);
 });
 
-window.addEventListener('keydown', update, true);
-
-function update(e) {
-  if (e.defaultPrevented) return;
-  const me = Player.me;
-
-  function _update (key, params) {
-    if (e.key !== key) return;
-    me.update(params);
-    socket.emit('update_player', me.x, me.y);
-    e.preventDefault();
+let keyStatuses = {};
+const keyMoves = {
+  ArrowUp: ['y', 1],
+  ArrowRight: ['x', 1],
+  ArrowDown: ['y', -1],
+  ArrowLeft: ['x', -1]
+};
+function handleKeys (e) {
+  if (Object.keys(keyMoves).indexOf(e.key) === -1) return;
+  keyStatuses[e.key] = e.type === 'keydown';
+  var move = {
+    x: 0,
+    y: 0
+  };
+  for (var key in keyMoves) {
+    if (!keyMoves.hasOwnProperty(key)) continue;
+    if (!keyStatuses[key]) continue;
+    const [dir, val] = keyMoves[key];
+    move[dir] += val;
   }
-
-  _update('ArrowDown', {y: me.y - 16});
-  _update('ArrowUp', {y: me.y + 16});
-  _update('ArrowLeft', {x: me.x - 16});
-  _update('ArrowRight', {x: me.x + 16});
+  Player.me.setMovement(move);
 }
+
+window.addEventListener('keydown', handleKeys, true);
+window.addEventListener('keyup', handleKeys, true);
 
 socket.on('draw_player', p => {
   const player = Player.find(p.nickname);

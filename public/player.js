@@ -37,7 +37,7 @@ export default class Player {
     $player.className = 'player';
     $player.setAttribute('data-nickname', encodeURIComponent(this.nickname));
     Player.$players.appendChild($player);
-    return $player;
+    return this._$this = $player;
   }
 
   $draw () {

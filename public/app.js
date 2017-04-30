@@ -1,9 +1,9 @@
 import Player from './player.js';
+import Monster from './monster.js';
 
 var state = CONSTANTS.state;
 
 var $game = document.getElementById('game');
-var $monsters = document.getElementById('monsters');
 
 function updateMap(state) {
   var map = state.game.map;
@@ -23,20 +23,11 @@ function updatePlayers(state) {
 }
 
 function updateMonsters(state) {
-  var monsters = state.game.monsters;
-  var html = '';
-  monsters.forEach(function (monster) {
-    var selector ='[data-id="' + encodeURIComponent(monster.id) + '"]';
-    var $current = $monsters.querySelector(selector);
-    if ($current) return;
-
-    var $monster = document.createElement('div');
-    $monster.className = 'monster';
-    $monster.style.left = monster.x + 'px'
-    $monster.style.bottom = monster.y + 24 + 'px';
-    $monster.setAttribute('data-id', encodeURIComponent(monster.id));
-
-    $monsters.appendChild($monster);
+  state.game.monsters.forEach(m => {
+    const monster = new Monster(m);
+    monster.$add();
+    monster.$draw();
+    Monster.list.push(monster);
   });
 }
 
@@ -71,19 +62,6 @@ socket.on('load_player', p => {
 
 window.addEventListener('keydown', update, true);
 
-function drawMonster (monster) {
-  const monster2 = state.game.monsters.find(monster2 => monster.id === monster2.id);
-
-  monster2.x = monster.x;
-  monster2.y = monster.y;
-
-  var selector ='[data-id="' + encodeURIComponent(monster.id) + '"]';
-  var $current = $monsters.querySelector(selector);
-
-  $current.style.left = monster.x + 'px'
-  $current.style.bottom = monster.y + 'px';
-}
-
 function update(e) {
   if (e.defaultPrevented) return;
   const me = Player.me;
@@ -107,8 +85,10 @@ socket.on('draw_player', p => {
   player.$draw();
 });
 
-socket.on('draw_monster', function (monster) {
-  drawMonster(monster);
+socket.on('draw_monster', m => {
+  const monster = Monster.find(m.id);
+  monster.update(m);
+  monster.$draw();
 });
 
 

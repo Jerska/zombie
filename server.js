@@ -66,11 +66,10 @@ server.listen(app.get('port'), () => {
   console.info(`Running on http://localhost:${app.get('port')}/`);
 });
 
-setInterval(function(){ 
-  var monsters = state.game.monsters;
-  monsters.forEach(function (monster) {
+setInterval(() => {
+  state.game.monsters.forEach(monster => {
     var _rand = Math.floor(Math.random() * 4);
-    if (_rand == 0) 
+    if (_rand == 0)
       monster.y -= 16;
     else if (_rand == 1)
       monster.y += 16;

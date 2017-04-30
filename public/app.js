@@ -1,6 +1,6 @@
-import Player from './player.js';
-import Monster from './monster.js';
-import Game from './game.js';
+import Player from './Player.js';
+import Monster from './Monster.js';
+import Game from './Game.js';
 
 var state = CONSTANTS.state;
 

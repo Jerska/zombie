@@ -1,6 +1,6 @@
-import Map from './map.js';
-import Player from './player.js';
-import Monster from './monster.js';
+import Map from './Map.js';
+import Player from './Player.js';
+import Monster from './Monster.js';
 
 export default class Game {
   static instance = null;

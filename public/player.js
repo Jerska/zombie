@@ -22,7 +22,7 @@ export default class Player {
     if (x && x >= 0 && x <= 768 - 16) {
       this.x = x;
     }
-    if (y && y >= 0 && y <= 768 - 16) {
+    if (y && y >= 0 && y <= 768 - 24) {
       this.y = y;
     }
   }

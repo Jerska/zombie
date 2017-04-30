@@ -5,13 +5,14 @@ export default class Projectile {
 
   static $projectiles = document.getElementById('projectiles');
 
-  constructor ({x, y, width, height,  angle, speed}) {
+  constructor ({x, y, width, height, angle, speed, startTime}) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     this.angle = angle;
     this.speed = speed;
+    this.startTime = startTime;
   }
 
   update ({x, y}) {
@@ -31,7 +32,8 @@ export default class Projectile {
     }
   }
 
-  move ({duration}) {
+  move ({previous}) {
+    const duration = Game.instance.now - previous;
     const amount = duration / 1000 * Projectile.SPEED * this.speed;
     this.update({
       x: this.x + Math.cos(this.angle) * amount,

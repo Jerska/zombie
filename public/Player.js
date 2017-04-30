@@ -41,7 +41,8 @@ export default class Player {
     }
   }
 
-  move({duration}) {
+  move({previous}) {
+    const duration = Game.instance.now - previous;
     const amount = duration / 1000 * Player.SPEED * this.speed;
     this.update({
       x: this.x + Math.cos(this.angle) * amount,
@@ -49,7 +50,7 @@ export default class Player {
     });
 
     if (this === Player.me) {
-      Game.instance.socket.emit('update_player', this.x, this.y);
+      Game.instance.socket.emit('update_player', this.x, this.y, Game.instance.now);
     }
 
     this.$draw();

@@ -21,6 +21,11 @@ if (!Player.nickname) {
   localStorage.setItem('nickname', Player.nickname);
 }
 
+socket.on('timestamp', timestamp => {
+  game.timestamp = new Date().getTime() - timestamp;
+});
+
+
 socket.emit('new_player', Player.nickname);
 
 socket.on('load_player', p => {
@@ -53,9 +58,10 @@ function handleKeys (e) {
 window.addEventListener('keydown', handleKeys, true);
 window.addEventListener('keyup', handleKeys, true);
 
-socket.on('draw_player', p => {
+socket.on('draw_player', (p, timestamp) => {
   const player = Player.find(p.nickname);
   player.update(p);
+  player.move({previous: timestamp});
   player.$draw();
 });
 
@@ -68,7 +74,6 @@ socket.on('draw_monster', m => {
 socket.on('new_projectile', p => {
   Game.instance.projectiles.push(new Projectile(p));
 });
-
 
 function shot(event) {
   const me = Player.me;
@@ -84,7 +89,8 @@ function shot(event) {
     width: 2,
     height: 2,
     speed: 1,
-    angle: angle
+    angle: angle,
+    startTime: game.now
   });
   Game.instance.projectiles.push(projectile);
   Game.instance.socket.emit('new_projectile', projectile);

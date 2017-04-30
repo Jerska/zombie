@@ -8,25 +8,29 @@ export default class Game {
 
   static $missiles = document.getElementById('missiles');
 
-  constructor ({map, players, projectiles, monsters}, socket) {
+  constructor ({timestamp, map, players, projectiles, monsters}, socket) {
     Game.instance = this;
+    this.timestamp = new Date().getTime() - timestamp;
+    this.now = new Date().getTime() - this.timestamp;
+    this.previous = this.now;
+
     this.map = new Map(map);
     this.players = players.map(p => new Player(p));
     this.monsters = monsters.map(m => new Monster(m));
     this.projectiles = projectiles.map(p => new Projectile(p));
+    this.projectiles.forEach(p => p.move({previous: p.startTime}));
     this.socket = socket;
-    this.previousUpdate = new Date().getTime();
   }
 
   update () {
-    const currentDate = new Date().getTime();
+    this.now = new Date().getTime() - this.timestamp;
     this.players.forEach(p => {
-      p.move({duration: currentDate - this.previousUpdate});
+      p.move({previous: this.previous});
     });
     this.projectiles.forEach(p => {
-      p.move({duration: currentDate - this.previousUpdate});
+      p.move({previous: this.previous});
     });
-    this.previousUpdate = currentDate;
+    this.previous = this.now;
   }
 
   addPlayer (p) {

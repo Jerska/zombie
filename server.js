@@ -44,13 +44,14 @@ io.sockets.on('connection', function (socket) {
     io.sockets.emit('load_player', player);
   });
 
-  socket.on('update_player', (x, y) => {
+  socket.on('update_player', (x, y, timestamp) => {
     let current = socket.current;
+    if (!current) return;
 
     current.x = x;
     current.y = y;
 
-    io.sockets.emit('draw_player', current);
+    socket.broadcast.emit('draw_player', current, timestamp);
   });
 
   socket.on('new_projectile', p => {
@@ -58,6 +59,12 @@ io.sockets.on('connection', function (socket) {
     socket.broadcast.emit('new_projectile', p);
   });
 });
+
+setInterval(() => {
+  const now = new Date().getTime();
+  state.game.timestamp = now;
+  io.sockets.emit('timestamp', now);
+}, 200);
 
 app.get('/constants.js', (req, res) => {
   res.contentType('application/javascript');

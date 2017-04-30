@@ -3,7 +3,7 @@ import Game from './Game.js';
 export default class Monster {
   static $monsters = document.getElementById('monsters');
   static WIDTH = 16;
-  static HEIGHT = 24;
+  static HEIGHT = 16;
   static SPEED = 128;
 
   static find (id) {
@@ -17,7 +17,7 @@ export default class Monster {
   }
 
   update ({x, y}) {
-    if (x && x >= 0 && x <= 768 - 16) {
+    if (x) {
       this.x = x;
       if (x <= 0) this.x = 0;
       if (x + Monster.WIDTH >= Game.instance.map.width) {
@@ -25,7 +25,7 @@ export default class Monster {
       }
     }
 
-    if (y && y >= 0 && y <= 768 - 16) {
+    if (y) {
       this.y = y;
       if (y <= 0) this.y = 0;
       if (y + Monster.HEIGHT >= Game.instance.map.height) {

@@ -1,10 +1,10 @@
+import Game from './Game.js';
+
 export default class Player {
   static $players = document.getElementById('players');
 
-  static list = [];
   static find (nickname) {
-    if (!Player.list) return null;
-    return Player.list.find(player => player.nickname === nickname);
+    return Game.instance.players.find(player => player.nickname === nickname);
   }
 
   static nickname = null;

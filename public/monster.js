@@ -1,10 +1,10 @@
+import Game from './Game.js';
+
 export default class Monster {
   static $monsters = document.getElementById('monsters');
 
-  static list = [];
   static find (id) {
-    if (!Monster.list) return null;
-    return Monster.list.find(monster => monster.id === id);
+    return Game.instance.monsters.find(monster => monster.id === id);
   }
 
   constructor ({id, x, y}) {

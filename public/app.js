@@ -1,39 +1,11 @@
-import Player from './player.js';
-import Monster from './monster.js';
+import Player from './Player.js';
+import Monster from './Monster.js';
+import Game from './Game.js';
 
 var state = CONSTANTS.state;
 
-var $game = document.getElementById('game');
-
-function updateMap(state) {
-  var map = state.game.map;
-  $game.style.width = map.width + 'px';
-  $game.style.height = map.height + 'px'
-  $game.style.marginTop = '-' + Math.round(map.width / 2) + 'px';
-  $game.style.marginLeft = '-' + Math.round(map.width / 2) + 'px';
-}
-
-function updatePlayers(state) {
-  state.game.players.forEach(p => {
-    const player = new Player(p);
-    player.$add();
-    player.$draw();
-    Player.list.push(player);
-  });
-}
-
-function updateMonsters(state) {
-  state.game.monsters.forEach(m => {
-    const monster = new Monster(m);
-    monster.$add();
-    monster.$draw();
-    Monster.list.push(monster);
-  });
-}
-
-updateMap(state);
-updatePlayers(state);
-updateMonsters(state);
+const game = new Game(state.game);
+game.$init();
 
 /* Socket.io */
 
@@ -48,16 +20,7 @@ if (!Player.nickname) {
 socket.emit('new_player', Player.nickname);
 
 socket.on('load_player', p => {
-  let player = Player.find(p.nickname);
-
-  if (!player) {
-    player = new Player(p);
-    player.$add();
-    player.$draw();
-    Player.list.push(player);
-  }
-
-  console.log('New player at position : ' + player.x + ' ' + player.y);
+  game.addPlayer(p);
 });
 
 window.addEventListener('keydown', update, true);
@@ -94,7 +57,7 @@ socket.on('draw_monster', m => {
 
 function shot(event) {
   const me = Player.me;
-  const _map = map.getBoundingClientRect();
+  const _map = Game.map.$this.getBoundingClientRect();
   const yb = event.clientY - _map.y; // ici ça prout :'(
   const ya = me.y + 12;
   const xb = event.clientX - _map.x;

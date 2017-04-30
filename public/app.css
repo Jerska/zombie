@@ -39,7 +39,7 @@ html, body, #game {
 .monster {
   position: absolute;
   width: 16px;
-  height: 24px;
+  height: 16px;
   background-color: green;
 }
 

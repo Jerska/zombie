@@ -49,7 +49,6 @@ export default class Player {
     });
 
     if (this === Player.me) {
-      console.log(this.x, this.y);
       Game.instance.socket.emit('update_player', this.x, this.y);
     }
 

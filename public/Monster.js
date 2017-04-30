@@ -17,22 +17,50 @@ export default class Monster {
   }
 
   update ({x, y}) {
-    if (x) {
-      this.x = x;
-      if (x <= 0) this.x = 0;
-      if (x + Monster.WIDTH >= Game.instance.map.width) {
-        this.x = Game.instance.map.width - Monster.WIDTH;
+    const players = Game.instance.players;
+    var closer_player;
+    var distance;
+
+    players.forEach(player => {
+      var dist = Math.sqrt(((y - this.y) * (y - this.y)) + ((x - this.x) * (x - this.x)));
+      if (dist < distance || !distance) {
+        distance = dist;
+        closer_player = player;
       }
+    });
+    
+
+    if (closer_player.x > this.x && closer_player.y > this.y) {
+      this.x += 1;
+      this.y += 1;
     }
 
-    if (y) {
-      this.y = y;
-      if (y <= 0) this.y = 0;
-      if (y + Monster.HEIGHT >= Game.instance.map.height) {
-        this.y = Game.instance.map.height - Monster.HEIGHT;
-      }
-
+    else if (closer_player.x < this.x && closer_player.y < this.y) {
+      this.x -= 1;
+      this.y -= 1;
     }
+
+    else if (closer_player.x > this.x && closer_player.y < this.y) {
+      this.x += 1;
+      this.y -= 1;
+    }
+
+    else if (closer_player.x < this.x && closer_player.y > this.y) {
+      this.x -= 1;
+      this.y += 1;
+    }
+
+    else if (closer_player.x > this.x && closer_player.y == this.y)
+      this.x += 1;
+
+    else if (closer_player.x < this.x && closer_player.y == this.y)
+      this.x -= 1;
+
+    else if (closer_player.x == this.x && closer_player.y > this.y)
+      this.y += 1;
+
+    else if (closer_player.x == this.x && closer_player.y < this.y)
+      this.y -= 1;
   }
 
   get $this () {

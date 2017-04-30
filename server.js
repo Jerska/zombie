@@ -54,6 +54,7 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('new_projectile', p => {
+    state.game.projectiles.push(p);
     socket.broadcast.emit('new_projectile', p);
   });
 });

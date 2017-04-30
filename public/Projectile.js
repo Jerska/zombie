@@ -12,7 +12,6 @@ export default class Projectile {
     this.height = height;
     this.angle = angle;
     this.speed = speed;
-    Game.instance.socket.emit('new_projectile', this);
   }
 
   update ({x, y}) {

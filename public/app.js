@@ -78,16 +78,16 @@ function shot(event) {
   const xb = event.clientX - _map.left;
   const xa = me.x + 8;
   const angle = Math.atan2(yb - ya, xb - xa);
-  Game.instance.projectiles.push(
-    new Projectile({
-      x: me.x + Player.WIDTH / 2,
-      y: me.y + Player.HEIGHT / 2,
-      width: 2,
-      height: 2,
-      speed: 1,
-      angle: angle
-    })
-  );
+  const projectile = new Projectile({
+    x: me.x + Player.WIDTH / 2,
+    y: me.y + Player.HEIGHT / 2,
+    width: 2,
+    height: 2,
+    speed: 1,
+    angle: angle
+  });
+  Game.instance.projectiles.push(projectile);
+  Game.instance.socket.emit('new_projectile', projectile);
 }
 
 document.addEventListener("click", shot);

@@ -58,7 +58,7 @@ socket.on('draw_monster', m => {
 function shot(event) {
   const me = Player.me;
   const _map = Game.instance.map.$this.getBoundingClientRect();
-  const yb = 768 + _map.y - event.clientY; // ici ça prout :'(
+  const yb = 768 + _map.y - event.clientY;
   const ya = me.y + 12;
   const xb = event.clientX - _map.x;
   const xa = me.x + 8;

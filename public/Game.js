@@ -5,6 +5,8 @@ import Monster from './Monster.js';
 export default class Game {
   static instance = null;
 
+  static $missiles = document.getElementById('missiles');
+
   constructor ({map, players, monsters}) {
     Game.instance = this;
     this.map = new Map(map);
@@ -17,6 +19,7 @@ export default class Game {
     let $missile = document.createElement('div');
     $missile.className = 'missile';
     this.missiles.push({"missile" : $missile, "x" : x, "y" : y});
+    Game.$missiles.appendChild($missile);
    this.$drawMissile();
   }
 

@@ -1,6 +1,9 @@
 import Game from './Game.js';
 
 export default class Player {
+  static WIDTH = 16;
+  static HEIGHT = 24;
+
   static $players = document.getElementById('players');
 
   static find (nickname) {
@@ -19,11 +22,19 @@ export default class Player {
   }
 
   update ({x, y}) {
-    if (x && x >= 0 && x <= 768 - 16) {
+    if (x !== undefined) {
       this.x = x;
+      if (x <= 0) this.x = 0;
+      if (x + Player.WIDTH >= Game.instance.map.width) {
+        this.x = Game.instance.map.width - Player.WIDTH;
+      }
     }
-    if (y && y >= 0 && y <= 768 - 24) {
+    if (y !== undefined) {
       this.y = y;
+      if (y <= 0) this.y = 0;
+      if (y + Player.HEIGHT >= Game.instance.map.height) {
+        this.y = Game.instance.map.height - Player.HEIGHT;
+      }
     }
   }
 

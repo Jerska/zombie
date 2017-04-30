@@ -1,5 +1,4 @@
 import Game from './Game.js';
-import Player from './Player.js';
 
 export default class Projectile {
   static SPEED = 192;
@@ -34,7 +33,7 @@ export default class Projectile {
   }
 
   move ({duration}) {
-    const amount = duration / 1000 * Player.SPEED * this.speed;
+    const amount = duration / 1000 * Projectile.SPEED * this.speed;
     this.update({
       x: this.x + Math.cos(this.angle) * amount,
       y: this.y + Math.sin(this.angle) * amount

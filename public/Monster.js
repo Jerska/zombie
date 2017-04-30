@@ -23,8 +23,8 @@ export default class Monster {
       if (x + Monster.WIDTH >= Game.instance.map.width) {
         this.x = Game.instance.map.width - Monster.WIDTH;
       }
-
     }
+
     if (y && y >= 0 && y <= 768 - 16) {
       this.y = y;
       if (y <= 0) this.y = 0;

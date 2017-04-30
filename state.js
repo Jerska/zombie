@@ -8,8 +8,8 @@ function generateMonster() {
   min = Math.ceil(0);
   max = Math.floor(MAP_SIZE);
   let monster = {
-    x: Math.floor(Math.random() * (max - min -16 +1)) + min,
-    y: Math.floor(Math.random() * (max - min -24 +1)) + min,
+    x: Math.floor(Math.random() * (max - min -16)) + min,
+    y: Math.floor(Math.random() * (max - min -16)) + min,
     id: id_monster
   };
   id_monster += 1;

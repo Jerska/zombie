@@ -1,6 +1,6 @@
-import Player from './Player.js';
-import Monster from './Monster.js';
-import Game from './Game.js';
+import Player from './player.js';
+import Monster from './monster.js';
+import Game from './game.js';
 
 var state = CONSTANTS.state;
 
@@ -57,8 +57,8 @@ socket.on('draw_monster', m => {
 
 function shot(event) {
   const me = Player.me;
-  const _map = Game.map.$this.getBoundingClientRect();
-  const yb = event.clientY - _map.y; // ici ça prout :'(
+  const _map = Game.instance.map.$this.getBoundingClientRect();
+  const yb = 768 + _map.y - event.clientY; // ici ça prout :'(
   const ya = me.y + 12;
   const xb = event.clientX - _map.x;
   const xa = me.x + 8;
@@ -70,6 +70,7 @@ function shot(event) {
   console.log(`Xa : ${xa}  et Ya : ${ya}`);
   console.log(`X : ${xc}  et Y : ${yc}`);
   console.log(`Xb : ${xb}  et Yb : ${yb}`);
+  Game.instance.addMissile(xc, yc);
 }
 
 document.addEventListener("click", shot);

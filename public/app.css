@@ -38,7 +38,14 @@ html, body, #game {
 
 .monster {
  position: absolute;
-  width: 16px;
-  height: 24px;
-  background-color: green;
+ width: 16px;
+ height: 24px;
+ background-color: green;
+}
+
+.missile {
+ position: absolute;
+ width: 16px;
+ height: 24px;
+ background-color: red;
 }

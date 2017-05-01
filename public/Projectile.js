@@ -5,13 +5,14 @@ export default class Projectile {
 
   static $projectiles = document.getElementById('projectiles');
 
-  constructor ({x, y, width, height, angle, speed, startTime}) {
+  constructor ({x, y, width, height, angle, speed, startTime, damage}) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     this.angle = angle;
     this.speed = speed;
+    this.damage = damage;
     this.startTime = startTime;
   }
 
@@ -57,5 +58,9 @@ export default class Projectile {
   $draw () {
     this.$this.style.left = this.x + 'px'
     this.$this.style.bottom = this.y + 'px';
+  }
+
+  $destroy() {
+    this.$this.style.display = 'none';
   }
 }

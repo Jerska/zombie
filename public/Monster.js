@@ -10,10 +10,11 @@ export default class Monster {
     return Game.instance.monsters.find(monster => monster.id === id);
   }
 
-  constructor ({id, x, y}) {
+  constructor ({id, x, y, hp}) {
     this.id = id;
     this.x = x;
     this.y = y;
+    this.hp = hp;
   }
 
   update ({x, y}) {

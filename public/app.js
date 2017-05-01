@@ -90,6 +90,7 @@ function shot(event) {
     height: 2,
     speed: 1,
     angle: angle,
+    damage: 5,
     startTime: game.now
   });
   Game.instance.projectiles.push(projectile);

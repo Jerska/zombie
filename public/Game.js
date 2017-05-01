@@ -6,8 +6,6 @@ import Projectile from './Projectile.js';
 export default class Game {
   static instance = null;
 
-  static $missiles = document.getElementById('missiles');
-
   constructor ({timestamp, map, players, projectiles, monsters}, socket) {
     Game.instance = this;
     this.timestamp = new Date().getTime() - timestamp;
@@ -29,8 +27,14 @@ export default class Game {
     });
     this.projectiles.forEach(p => {
       this.monsters.forEach(m => {
-        if (p.x >= m.x && p.x <= m.x + 16 && p.y >= m.y && p.y <= m.y + 16)
-          m.$destroy();
+        if (p.x >= m.x && p.x <= m.x + 16 && p.y >= m.y && p.y <= m.y + 16) {
+          m.hp -= p.damage;
+          p.$destroy();
+          // ici il faut enlever p de this.projectiles
+          console.log(`HP after damage : ${m.hp}`);
+          if (m.hp <= 0)
+            m.$destroy();
+        }
       });
       p.move({previous: this.previous});
     });

@@ -10,6 +10,7 @@ function generateMonster() {
   let monster = {
     x: Math.floor(Math.random() * (max - min -16)) + min,
     y: Math.floor(Math.random() * (max - min -16)) + min,
+    hp: 10,
     id: id_monster
   };
   id_monster += 1;

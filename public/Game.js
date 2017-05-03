@@ -30,7 +30,8 @@ export default class Game {
         if (p.x >= m.x && p.x <= m.x + 16 && p.y >= m.y && p.y <= m.y + 16) {
           m.hp -= p.damage;
           p.$destroy();
-          // ici il faut enlever p de this.projectiles
+          var idx = this.projectiles.indexOf(p);
+          this.projectiles.splice(idx, 1);
           console.log(`HP after damage : ${m.hp}`);
           if (m.hp <= 0)
             m.$destroy();

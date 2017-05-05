@@ -61,6 +61,6 @@ export default class Projectile {
   }
 
   $destroy() {
-    this.$this.style.display = 'none';
+    this.$this.remove();
   }
 }

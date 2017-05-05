@@ -83,6 +83,6 @@ export default class Monster {
   }
 
   $destroy() {
-    this.$this.style.backgroundColor = 'red';
+    this.$this.remove();
   }
 };

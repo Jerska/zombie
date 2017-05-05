@@ -33,8 +33,11 @@ export default class Game {
           var idx = this.projectiles.indexOf(p);
           this.projectiles.splice(idx, 1);
           console.log(`HP after damage : ${m.hp}`);
-          if (m.hp <= 0)
+          if (m.hp <= 0) {
+            var _idx = this.monsters.indexOf(m);
+            this.monsters.splice(_idx, 1);
             m.$destroy();
+          }
         }
       });
       p.move({previous: this.previous});
